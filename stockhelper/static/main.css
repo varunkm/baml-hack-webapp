@@ -1,3 +1,13 @@
 .card {
   padding: 20px;
 }
+
+
+.risk h3 {
+  font-size: 100px;
+  text-align: center;
+}
+
+.risk .card {
+  border-radius: 5px;
+}
