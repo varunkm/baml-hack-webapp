@@ -1,12 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+
 from django.http import JsonResponse
 from stockhelper.alphaQuery import AlphaQuery
 import json
 # Create your views here.
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
 
 # returns json time series data for the requested stock and the requested interval
 def getStockData(request,ticker,interval):
@@ -36,3 +35,6 @@ def getStockDataForCharting(request,ticker,interval):
         c = float(quote['close'])
         ret_data += [[time,o,h,l,c]]
     return JsonResponse(ret_data,safe=False)
+
+def index(request):
+    return render(request, "index.html")
