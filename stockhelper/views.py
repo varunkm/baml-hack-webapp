@@ -28,13 +28,13 @@ def getStockDataForCharting(request,ticker,interval):
     data = AlphaQuery(ticker,intraday,interval).run()
     ret_data = []
     for quote in data:
-        time = quote['openTime'].timestamp()*1000
+        time = int(quote['openTime'].timestamp()*1000)
         o = float(quote['open'])
         h = float(quote['high'])
         l = float(quote['low'])
         c = float(quote['close'])
         ret_data += [[time,o,h,l,c]]
-    return JsonResponse(ret_data,safe=False)
+    return JsonResponse(list(reversed(ret_data)),safe=False)
 
 def index(request):
     return render(request, "index.html")
