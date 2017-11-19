@@ -1,6 +1,8 @@
 import requests
 import os
 import datetime
+import pandas as pd
+import json
 
 class AlphaQuery:
     def __init__(self,ticker,intraday,period):
@@ -10,6 +12,20 @@ class AlphaQuery:
         self.API_KEY = ''
         with open('alphavantage.key') as secret:
             self.API_KEY = secret.readline(16)
+
+    def getPandas(self):
+        def datetime_handler(x):
+            if isinstance(x, datetime.datetime):
+                return x.isoformat()
+            raise TypeError("Unknown type")
+
+        quotes = self.run()
+        df = pd.read_json(json.dumps(quotes, default=datetime_handler))
+        df['DateTime'] = pd.to_datetime(df['openTime'])
+        df.set_index('DateTime', inplace=True)
+        del df['openTime']
+        print(df.head())
+
     def run(self):
         base_url = 'https://www.alphavantage.co/query?function='
         if self.intraday:
