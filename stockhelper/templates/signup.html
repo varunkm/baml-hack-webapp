@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<HTML>
+<HEad>
+    <meta charset="utf-8">
+    <title>User Account</title>
+
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+    <script
+    src="https://code.jquery.com/jquery-3.2.1.js"
+    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+    crossorigin="anonymous"></script>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/stock/indicators/indicators.js"></script>
+    <script src="https://code.highcharts.com/stock/indicators/bollinger-bands.js"></script>
+    <!-- {% load static %} -->
+
+    <style>
+        body {
+            background: #f5f5f5;
+        }
+
+        h5 {
+            font-weight: 400;
+        }
+
+        .container {
+            margin-top: 80px;
+            width: 600px;
+            height: 700px;
+        }
+
+        .tabs .indicator {
+            background-color: #e0f2f1;
+            height: 60px;
+            opacity: 0.3;
+        }
+
+        .form-container {
+            padding: 40px;
+            padding-top: 10px;
+        }
+
+        .confirmation-tabs-btn {
+            position: absolute;
+        }
+    </style>
+</HEad>
+<Body>
+    <div class="container white z-depth-2">
+        <ul class="tabs teal">
+            <li class="tab col s3"><a class="white-text active" href="#login">login</a></li>
+            <li class="tab col s3"><a class="white-text" href="#register">register</a></li>
+        </ul>
+        <div id="login" class="col s12">
+            <form class="col s12">
+                <div class="form-container">
+                    <h3 class="teal-text">Hello</h3>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="email" type="email" class="validate">
+                            <label for="email">Email</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="password" type="password" class="validate">
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+                    <br>
+                    <center>
+                        <button class="btn waves-effect waves-light teal" type="submit" name="action">Connect</button>
+                        <br>
+                        <br>
+                        <a href="">Forgotten password?</a>
+                    </center>
+                </div>
+            </form>
+        </div>
+        <div id="register" class="col s12">
+            <form action="/generate/" method="POST" class="col s12">
+              {% csrf_token %}
+                <div class="form-container">
+                    <h3 class="teal-text">Welcome</h3>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="last_name" type="text" class="validate">
+                            <label for="last_name">First Name</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="last_name" type="text" class="validate">
+                            <label for="last_name">Last Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="email" type="email" class="validate">
+                            <label for="email">Email</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="password" type="password" class="validate">
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <select name="risk">
+                                <option value="" disabled selected>Choose your profile</option>
+                                <option value="LOW">Risk Averse</option>
+                                <option value="MED">Risk Neutral</option>
+                                <option value="HIGH">Risk Seeking</option>
+                            </select>
+                            <label>Risk Profile</label>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="capital" type="text" name="cash" class="validate">
+                            <label for="capital">Inital Capital</label>
+                        </div>
+                    </div>
+
+                    <center>
+                        <button class="btn waves-effect waves-light teal" type="submit" name="action">Submit</button>
+                    </center>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        $('select').material_select();
+    </script>
+</Body>
+</HTML>

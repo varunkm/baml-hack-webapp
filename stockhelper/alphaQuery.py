@@ -24,7 +24,7 @@ class AlphaQuery:
         df['DateTime'] = pd.to_datetime(df['openTime'])
         df.set_index('DateTime', inplace=True)
         del df['openTime']
-        print(df.head())
+        return df
 
     def run(self):
         base_url = 'https://www.alphavantage.co/query?function='

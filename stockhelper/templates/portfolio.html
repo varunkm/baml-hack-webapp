@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>RAlgo</title>
+
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <script src="https://code.highcharts.com/stock/highstock.js"></script>
+  <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/stock/indicators/indicators.js"></script>
+  <script src="https://code.highcharts.com/stock/indicators/bollinger-bands.js"></script>
+  <!-- {% load static %} -->
+
+  <link rel="stylesheet" type="text/css" href="static/main.css" />
+</head>
+
+<body>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">RAlgo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="extra.html">Extra</a></li>
+        <!-- Login Modal Trigger -->
+        <li id="login"><a id="loginModalClick" href="#modal1">Login</a></li>
+        <!-- Sign Up Modal Trigger -->
+        <li id="signup"><a id="signupModalClick" href="#modal2">Register</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Login Modal Structure -->
+  <div id="signInModal" class="modal">
+    <div class="modal-content">
+      <h4>User Sign In</h4>
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="email" type="email" class="validate">
+              <label for="email">Email</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="password" type="password" class="validate">
+              <label for="password">Password</label>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Sign In</a>
+    </div>
+  </div>
+
+  <!-- SignUp Modal Structure -->
+  <div id="signUpModel" class="modal">
+    <div class="modal-content">
+      <h4>User Registeration</h4>
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="first_name" type="text" class="validate">
+              <label for="first_name">First Name</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="last_name" type="text" class="validate">
+              <label for="last_name">Last Name</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="email" type="email" class="validate">
+              <label for="email">Email</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="password" type="password" class="validate">
+              <label for="password">Password</label>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Register</a>
+    </div>
+  </div>
+
+  <div class="container risk">
+    <h2>Portfolio</h2>
+    <table>
+      <thead>
+        <th>Stock</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Holding</th>
+      </thead>
+      <tbody>
+        {% for row in portfolio %}
+        <tr>
+          <td><a href='/stock/{{row.0}}/{{risk_metrics.0}}/{{risk_metrics.1}}/{{risk_metrics.2}}/{{risk_metrics.3}}/{{risk_metrics.4}}'>{{row.0}}</a></td>
+          <td>{{row.1}}</td>
+          <td>{{row.2}}</td>
+          <td>{{row.3}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <h3>Portfolio Risk Metrics</h3>
+    <table>
+      <thead>
+        <th>Metric</th>
+        <th>Value</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Sharpe Ratio</td>
+          <td>{{ risk_metrics.0 }}</td>
+        </tr>
+        <tr>
+          <td>Alpha</td>
+          <td>{{ risk_metrics.1 }}</td>
+        </tr>
+        <tr>
+          <td>Beta</td>
+          <td>{{ risk_metrics.2 }}</td>
+        </tr>
+        <tr>
+          <td>Std. Dev</td>
+          <td>{{ risk_metrics.3 }}</td>
+        </tr>
+        <tbody>
+        </table>
+      </div>
+
+      <!-- Add Stock Modal Structure -->
+      <div id="addStock" class="modal">
+        <div class="modal-content">
+          <h4>Add Stock</h4>
+          <form id="input-portfolio">
+            <div class="input-field">
+              <input id="ticker" type="text" class="validate">
+              <label for="ticker">Ticker</label>
+            </div>
+            <div class="input-field">
+              <input id="Quantity" type="text" class="validate">
+              <label for="Quantity">Quantity</label>
+            </div>
+            <div class="input-field">
+              <input id="holding-period" type="text" class="validate">
+              <label for="holding-period">Holding Period</label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Add Stock</a>
+        </div>
+      </div>
+
+      
+    </body>
+
+    <script type="text/javascript" src="static/main.js"></script>
+    </html>
